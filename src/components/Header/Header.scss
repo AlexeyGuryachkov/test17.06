@@ -1,1 +1,16 @@
+@use '../../assets/styles/colors' as *;
 
+.header {
+	display: flex;
+	justify-content: space-between;
+	height: 3rem;
+	background-color: $color-white;
+
+	.button-wrapper {
+		padding: 0.25rem 1rem;
+	}
+}
+
+.offcanvas.offcanvas-start {
+	padding-top: 3rem;
+}

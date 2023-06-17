@@ -1,0 +1,59 @@
+@use '../../assets/styles/colors' as *;
+
+.burger-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+	outline: none;
+
+	& > i {
+		position: relative;
+		display: block;
+		width: 16px;
+		height: 2px;
+		background-color: $color-border-dark;
+		transition: 0.3s all;
+		z-index: 1050;
+
+		&::before,
+		&::after {
+			position: absolute;
+			left: 0;
+			height: 2px;
+			background-color: $color-border-dark;
+			transition: 0.3s all;
+			content: '';
+		}
+
+		&::before {
+			top: -5px;
+			width: 16px;
+		}
+
+		&::after {
+			top: 5px;
+			width: 10px;
+		}
+	}
+
+	&.active {
+		i {
+			background-color: transparent;
+			transform: rotate(180deg);
+
+			&::before {
+				top: 0;
+				transform: rotate(45deg);
+			}
+
+			&::after {
+				top: 0;
+				width: 16px;
+				transform: rotate(-45deg);
+			}
+		}
+	}
+}

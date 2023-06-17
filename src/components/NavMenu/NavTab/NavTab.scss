@@ -1,0 +1,12 @@
+@use '../../../assets/styles/colors' as *;
+
+.nav-link-item {
+	padding: 0.5rem 1.5rem;
+	font-size: 18px;
+
+	&.active {
+		background-color: $color-blue-light;
+		color: $color-blue;
+		font-weight: 500;
+	}
+}
