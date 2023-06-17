@@ -1,13 +1,17 @@
 import React, { memo } from 'react'
+import { bool } from 'prop-types'
 
 import ListGroup from 'react-bootstrap/ListGroup'
 
 import Avatar from '../../../components/Avatar/Avatar'
 
+import myAvatar from '../../../assets/media/my-avatar.jpg'
+
 import './UserInfo.scss'
 
-const UserInfo = memo(() => {
-	const user = {
+const UserInfo = memo(({ myCard }) => {
+	/*MOCK*/
+	const userData = {
 		id: 1,
 		name: 'Leanne Graham',
 		username: 'Bret',
@@ -30,6 +34,19 @@ const UserInfo = memo(() => {
 			bs: 'harness real-time e-markets',
 		},
 	}
+
+	/*about me mock*/
+	const myData = {
+		address: {},
+		company: {},
+		name: 'Алексей Гурячков',
+		email: 'alexey.guryachkov@gmail.com',
+		phone: '+79114965936',
+		avatar: myAvatar,
+	}
+
+	/* about me or user page*/
+	const user = myCard ? myData : userData
 
 	const { name, email, phone, avatar } = user
 
@@ -59,5 +76,13 @@ const UserInfo = memo(() => {
 		</div>
 	)
 })
+
+UserInfo.defaultProps = {
+	myCard: false,
+}
+
+UserInfo.propTypes = {
+	myCard: bool,
+}
 
 export default UserInfo
