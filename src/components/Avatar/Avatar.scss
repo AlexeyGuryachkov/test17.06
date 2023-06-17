@@ -1,0 +1,23 @@
+@use '../../assets/styles/colors' as *;
+
+.img-wrapper {
+	margin-right: 1.25rem;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 1px solid $color-border;
+
+	&.medium {
+		width: 9.375rem;
+		height: 9.375rem;
+	}
+
+	&.big {
+		width: 15.625rem;
+		height: 15.625rem;
+	}
+
+	& > img {
+		width: 100%;
+		object-fit: contain;
+	}
+}
