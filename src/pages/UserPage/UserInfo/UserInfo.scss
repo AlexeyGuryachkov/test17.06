@@ -1,0 +1,14 @@
+.user-info {
+	display: flex;
+	align-items: center;
+
+	.list-group-item {
+		&.title {
+			width: 8rem;
+		}
+
+		&.cell {
+			width: 25rem;
+		}
+	}
+}
