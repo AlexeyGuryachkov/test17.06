@@ -1,0 +1,36 @@
+@use './colors' as *;
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	color: $color-black;
+	font-weight: 400;
+	font-family: Roboto, sans-serif;
+	word-wrap: break-word;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	scroll-behavior: smooth;
+	text-decoration: none;
+	outline: none;
+	border: none;
+
+	html {
+		height: 100%;
+
+		body {
+			margin: 0;
+			height: 100%;
+			box-sizing: border-box;
+			background-color: $color-main-bg;
+
+			#root {
+				height: 100%;
+			}
+
+			.App {
+				height: 100%;
+			}
+		}
+	}
+}
