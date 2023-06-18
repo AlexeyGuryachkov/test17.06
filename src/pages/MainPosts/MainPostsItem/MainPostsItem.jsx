@@ -1,39 +1,36 @@
 import React, { memo, useState } from 'react'
-import { string, number } from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+import { number, string } from 'prop-types'
 
-import { NavLink } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import { NavLink } from 'react-router-dom'
 
 import MainPostsComments from './MainPostsComments/MainPostsComments'
-
 import Avatar from '../../../components/Avatar/Avatar'
+
+import { getComments } from '../../../store/reducers/posts/postReducer'
+
+import { getCommentsList } from '../../../store/reducers/posts/postSelectors'
 
 import './MainPostsItem.scss'
 
 const MainPostsItem = memo(({ id, title, body, userId }) => {
 	const [isCommentsShow, setIsCommentsShow] = useState(false)
 
-	/* MOCK */
-	const comments = [
-		{
-			postId: 1,
-			id: 1,
-			name: 'id labore ex et quam laborum',
-			email: 'Eliseo@gardner.biz',
-			body: 'laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium',
-		},
-		{
-			postId: 2,
-			id: 2,
-			name: 'quo vero reiciendis velit similique earum',
-			email: 'Jayne_Kuhic@sydney.com',
-			body: 'est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et',
-		},
-	]
+	const dispatch = useDispatch()
+	const comments = useSelector(getCommentsList)
 
-	/*функция показать/скрыть комментарии. Замыкаю для лучшей, на мой взгляд, читаемости разметки*/
-	const getPostComments = () => setIsCommentsShow(!isCommentsShow)
+	/* загрузить комменты к посту по айди */
+	const getPostComments =
+		({ id }) =>
+		() => {
+			if (!comments.map(({ postId }) => postId).includes(id)) {
+				dispatch(getComments({ postId: id }))
+			}
+			/* показать/скрыть комменты */
+			setIsCommentsShow(!isCommentsShow)
+		}
 
 	return (
 		<div className="main-posts__item">
@@ -46,7 +43,7 @@ const MainPostsItem = memo(({ id, title, body, userId }) => {
 					<Card.Body>
 						<Card.Title>{title}</Card.Title>
 						<Card.Text>{body}</Card.Text>
-						<Button variant="primary" onClick={getPostComments}>
+						<Button variant="primary" onClick={getPostComments({ id })}>
 							{isCommentsShow ? 'Скрыть комментарии' : 'Показать комментарии'}
 						</Button>
 					</Card.Body>
