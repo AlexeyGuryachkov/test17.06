@@ -1,5 +1,6 @@
 const defaultState = {
 	posts: [],
+	count: null,
 	isLoading: false,
 	comments: [],
 }
@@ -16,7 +17,7 @@ export const ASYNC_SET_COMMENTS = 'ASYNC_SET_COMMENTS'
 export default function posts(state = defaultState, action) {
 	switch (action.type) {
 		case SET_POSTS:
-			return { ...state, posts: action.payload.posts }
+			return { ...state, posts: action.payload.posts, count: action.payload.posts.length }
 		case SET_COMMENTS:
 			return {
 				...state,

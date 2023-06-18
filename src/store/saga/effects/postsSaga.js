@@ -7,9 +7,9 @@ import {
 	setComments,
 	setIsLoading,
 	setPosts,
-} from '../reducers/posts/postReducer'
+} from '../../reducers/posts/postReducer'
 
-import postsApi from '../../api/posts-api'
+import postsApi from '../../../api/posts-api'
 
 /*задержка для прелоадера*/
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
