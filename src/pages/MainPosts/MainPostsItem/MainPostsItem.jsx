@@ -21,14 +21,12 @@ const MainPostsItem = memo(({ id, title, body, userId }) => {
 	const dispatch = useDispatch()
 	const comments = useSelector(getCommentsList)
 
-	/* загрузить комменты к посту по айди */
 	const getPostComments =
 		({ id }) =>
 		() => {
 			if (!comments.map(({ postId }) => postId).includes(id)) {
 				dispatch(getComments({ postId: id }))
 			}
-			/* показать/скрыть комменты */
 			setIsCommentsShow(!isCommentsShow)
 		}
 

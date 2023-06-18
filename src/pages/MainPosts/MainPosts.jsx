@@ -6,11 +6,8 @@ import Pagination from '../../components/Pagination/Pagination'
 
 import { getPosts, resetPosts } from '../../store/reducers/posts/postReducer'
 
-import { getPostsCount, getPostsList } from '../../store/reducers/posts/postSelectors'
-
-import { getRandomId } from '../../functions'
-
-import './MainPosts.scss'
+import { getIsLoading, getPostsCount, getPostsList } from '../../store/reducers/posts/postSelectors'
+import Preloader from '../../components/Preloader/Preloader'
 
 const MainPosts = memo(() => {
 	const limit = 10
@@ -19,6 +16,7 @@ const MainPosts = memo(() => {
 
 	const allPosts = useSelector(getPostsList)
 	const count = useSelector(getPostsCount)
+	const isLoading = useSelector(getIsLoading)
 
 	const dispatch = useDispatch()
 
@@ -44,11 +42,12 @@ const MainPosts = memo(() => {
 	return (
 		<div className="main-posts">
 			{posts.map(({ title, body, id, userId }) => (
-				<MainPostsItem key={getRandomId()} id={id} title={title} body={body} userId={userId} />
+				<MainPostsItem key={id + title[0]} id={id} title={title} body={body} userId={userId} />
 			))}
 			{count > limit && (
 				<Pagination count={count} setOffset={setOffset} limit={limit} offset={offset} />
 			)}
+			<Preloader show={isLoading} />
 		</div>
 	)
 })
