@@ -45,7 +45,6 @@ const UserInfo = memo(({ myCard }) => {
 		avatar: myAvatar,
 	}
 
-	/* about me or user page*/
 	const user = myCard ? myData : userData
 
 	const { name, email, phone, avatar } = user
