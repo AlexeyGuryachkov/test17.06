@@ -36,7 +36,7 @@ function* userPostsWorker(action) {
 	yield delay(500)
 
 	try {
-		const userPosts = yield call(usersApi.getUserPosts(), { userId: action.payload.userId })
+		const userPosts = yield call(usersApi.getUserPosts, { userId: action.payload.userId })
 		yield put(setUserPosts({ userPosts }))
 	} catch (e) {
 		/*to aguryachkov: не забыть про нотификацию*/
