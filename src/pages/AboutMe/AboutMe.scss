@@ -1,0 +1,11 @@
+@use '../../assets/styles/colors' as *;
+
+.about-me {
+	.title {
+		padding-bottom: 0.5rem;
+	}
+	.link {
+		padding: 0 4px;
+		color: $color-blue;
+	}
+}
