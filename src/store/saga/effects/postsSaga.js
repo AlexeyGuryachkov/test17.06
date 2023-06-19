@@ -1,5 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 
+import postsApi from '../../../api/posts-api'
+
 import {
 	ASYNC_SET_COMMENTS,
 	ASYNC_SET_POSTS,
@@ -8,8 +10,9 @@ import {
 	setIsLoading,
 	setPosts,
 } from '../../reducers/posts/postReducer'
+import { setNots } from '../../reducers/nots/notsReducer'
 
-import postsApi from '../../../api/posts-api'
+import { getRandomId } from '../../../functions'
 
 /*задержка для прелоадера*/
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -22,8 +25,7 @@ function* postsWorker(action) {
 		const posts = yield call(postsApi.requestPosts, action.payload)
 		yield put(setPosts({ posts }))
 	} catch (e) {
-		/*to aguryachkov: не забыть про нотификацию*/
-		console.log(e)
+		yield put(setNots({ nots: { id: getRandomId(), type: 'error', msg: e.message } }))
 	}
 	yield put(setIsLoading({ isLoading: false }))
 }
@@ -36,8 +38,7 @@ function* commentsWorker(action) {
 		const comments = yield call(postsApi.requestComments, { postId: action.payload.postId })
 		yield put(setComments({ comments }))
 	} catch (e) {
-		/*to aguryachkov: не забыть про нотификацию*/
-		console.log(e)
+		yield put(setNots({ nots: { id: getRandomId(), type: 'error', msg: e.message } }))
 	}
 	yield put(setIsLoading({ isLoading: false }))
 }

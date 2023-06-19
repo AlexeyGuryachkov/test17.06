@@ -1,0 +1,17 @@
+.notifications-wrapper {
+	position: sticky;
+	z-index: 99;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%);
+	padding: 1rem;
+	width: 50rem;
+}
+
+.fade.notification.alert.alert-danger.show {
+	opacity: 0;
+	transition: all ease-in 0.3s;
+}
+.fade.notification.alert.alert-danger.show.visible {
+	opacity: 1;
+}

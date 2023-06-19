@@ -10,7 +10,7 @@ import './MainPostsComments.scss'
 
 const MainPostsComments = memo(({ comments, id, isShow }) => (
 	<div className={cn('main-posts__comments', { show: isShow })}>
-		<ListGroup as="ol" style={{ width: '70.5rem' }}>
+		<ListGroup as="ol">
 			{comments?.map(({ postId, email, body }) => (
 				<div key={getRandomId()} className="comments-item">
 					{postId === id && (

@@ -33,13 +33,20 @@ const MainPostsItem = memo(({ id, title, body, userId }) => {
 	return (
 		<div className="main-posts__item">
 			<div className="post-wrapper">
-				<NavLink to={`/user-page/${userId}?`}>
+				<NavLink to={`/user-page/${userId}?`} className="main-posts__avatar">
 					<Avatar />
 				</NavLink>
 
-				<Card style={{ width: '60rem' }}>
+				<Card>
 					<Card.Body>
-						<Card.Title>{title}</Card.Title>
+						<Card.Title>
+							<div className="title-wrapper">
+								<NavLink to={`/user-page/${userId}?`} className="main-posts__avatar-mobile">
+									<Avatar />
+								</NavLink>
+								{title}
+							</div>
+						</Card.Title>
 						<Card.Text>{body}</Card.Text>
 						<Button variant="primary" onClick={getPostComments({ id })}>
 							{isCommentsShow ? 'Скрыть комментарии' : 'Показать комментарии'}

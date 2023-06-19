@@ -1,4 +1,5 @@
 @use '../../assets/styles/colors' as *;
+@use '../../assets/styles/mixins' as *;
 
 .img-wrapper {
 	margin-right: 1.25rem;
@@ -19,5 +20,33 @@
 	& > img {
 		width: 100%;
 		object-fit: contain;
+	}
+}
+
+@include max-width(1200px) {
+	.img-wrapper {
+		&.medium {
+			width: 7.375rem;
+			height: 7.375rem;
+		}
+
+		&.big {
+			width: 13.625rem;
+			height: 13.625rem;
+		}
+	}
+}
+
+@include max-width(970px) {
+	.img-wrapper {
+		&.medium {
+			width: 5.375rem;
+			height: 5.375rem;
+		}
+
+		&.big {
+			width: 10.625rem;
+			height: 10.625rem;
+		}
 	}
 }

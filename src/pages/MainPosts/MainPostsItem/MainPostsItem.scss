@@ -1,8 +1,34 @@
+@use '../../../assets/styles/mixins' as *;
+
 .main-posts__item {
 	.post-wrapper {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		padding-bottom: 1rem;
+		width: 100%;
+
+		.main-posts__avatar-mobile {
+			display: none;
+		}
+	}
+}
+
+@include max-width(470px) {
+	.main-posts__item {
+		.main-posts__avatar {
+			display: none;
+		}
+
+		.post-wrapper {
+			.title-wrapper {
+				display: flex;
+			}
+			.main-posts__avatar-mobile {
+				display: block;
+			}
+
+			flex-direction: column;
+		}
 	}
 }

@@ -10,6 +10,9 @@ import {
 	setUserById,
 	setUserPosts,
 } from '../../reducers/users/usersReducer'
+import { setNots } from '../../reducers/nots/notsReducer'
+
+import { getRandomId } from '../../../functions'
 
 /*задержка для прелоадера*/
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -23,8 +26,7 @@ function* usersWorker(action) {
 		const user = yield call(usersApi.getUserById, { userId: action.payload.userId })
 		yield put(setUserById({ user }))
 	} catch (e) {
-		/*to aguryachkov: не забыть про нотификацию*/
-		console.log(e)
+		yield put(setNots({ nots: { id: getRandomId(), type: 'error', msg: e.message } }))
 	}
 
 	yield put(setIsLoading({ isLoading: false }))
@@ -39,8 +41,7 @@ function* userPostsWorker(action) {
 		const userPosts = yield call(usersApi.getUserPosts, { userId: action.payload.userId })
 		yield put(setUserPosts({ userPosts }))
 	} catch (e) {
-		/*to aguryachkov: не забыть про нотификацию*/
-		console.log(e)
+		yield put(setNots({ nots: { id: getRandomId(), type: 'error', msg: e.message } }))
 	}
 
 	yield put(setIsLoading({ isLoading: false }))

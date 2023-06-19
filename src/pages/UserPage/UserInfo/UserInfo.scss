@@ -1,6 +1,10 @@
+@use '../../../assets/styles/mixins' as *;
+
 .user-info {
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	padding-bottom: 1rem;
 
 	.list-group-item {
 		&.title {
@@ -10,5 +14,26 @@
 		&.cell {
 			width: 25rem;
 		}
+	}
+}
+
+@include max-width(770px) {
+	.user-info {
+		.list-group-item {
+			&.title {
+				width: 7rem;
+			}
+
+			&.cell {
+				width: 16rem;
+			}
+		}
+	}
+}
+
+@include max-width(600px) {
+	.user-info {
+		display: flex;
+		flex-direction: column;
 	}
 }

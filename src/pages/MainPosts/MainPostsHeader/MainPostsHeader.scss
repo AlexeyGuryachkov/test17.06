@@ -1,4 +1,12 @@
+@use '../../../assets/styles/mixins' as *;
+
 .main-posts-header {
 	width: 100%;
 	display: flex;
+}
+
+@include max-width(470px) {
+	.main-posts-header {
+		flex-direction: column;
+	}
 }

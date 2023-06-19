@@ -1,3 +1,5 @@
+@use '../../assets/styles/mixins' as *;
+
 .pageContainer {
 	display: flex;
 	flex-direction: column;
@@ -5,4 +7,33 @@
 	height: auto;
 	min-height: calc(100vh - 3rem);
 	padding: 3rem;
+	width: 60rem;
+	justify-self: center;
+}
+
+@include max-width(970px) {
+	.pageContainer {
+		width: 50rem;
+		padding: 1.5rem;
+	}
+}
+
+@include max-width(780px) {
+	.pageContainer {
+		width: 40rem;
+	}
+}
+
+@include max-width(620px) {
+	.pageContainer {
+		width: 30rem;
+		padding: 1rem;
+	}
+}
+
+@include max-width(470px) {
+	.pageContainer {
+		width: 20rem;
+		padding: 1rem;
+	}
 }
