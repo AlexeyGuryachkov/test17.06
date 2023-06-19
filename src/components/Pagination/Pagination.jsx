@@ -9,7 +9,14 @@ const Paginat = memo(({ count, setOffset, limit, offset }) => {
 	const [pagesNumbers, setPagesNumbers] = useState([])
 	const pagesCount = Math.ceil(count / limit) || 1
 
-	const page = offset ? offset / limit + 1 : 1
+	const page = offset ? Math.ceil(offset / limit + 1) : 1
+
+	const hadleLastPageClick = () => {
+		const _offset = count - limit
+		if (_offset % 10) {
+			setOffset(_offset + (10 - (_offset % 10)))
+		} else setOffset(_offset)
+	}
 
 	const prevPage = () => {
 		if (page > 1) setOffset(offset - limit)
@@ -52,15 +59,15 @@ const Paginat = memo(({ count, setOffset, limit, offset }) => {
 					1
 				</Pagination.Item>
 				{page > 4 && <Pagination.Ellipsis />}
-				{pagesNumbers.map((count) => {
+				{pagesNumbers.map((num) => {
 					return (
-						<Pagination.Item key={count} active={count === page} onClick={choosePage(count)}>
-							{count}
+						<Pagination.Item key={num} active={num === page} onClick={choosePage(num)}>
+							{num}
 						</Pagination.Item>
 					)
 				})}
 				{page < pagesCount - 3 && <Pagination.Ellipsis />}
-				<Pagination.Item active={page === pagesCount} onClick={() => setOffset(count - limit)}>
+				<Pagination.Item active={page === pagesCount} onClick={hadleLastPageClick}>
 					{pagesCount}
 				</Pagination.Item>
 				<Pagination.Next disabled={page === pagesCount} onClick={nextPage} />

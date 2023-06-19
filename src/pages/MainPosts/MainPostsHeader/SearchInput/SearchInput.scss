@@ -1,0 +1,19 @@
+.search-input-wrapper {
+	position: relative;
+	width: 60.5rem;
+}
+
+.btn-close {
+	position: absolute;
+	display: none;
+	right: 1rem;
+	top: 1rem;
+
+	&.active {
+		display: block;
+	}
+}
+
+.form-floating > .form-control:not(:placeholder-shown) {
+	padding-right: 2.8rem;
+}
