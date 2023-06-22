@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import MainPostsHeader from './MainPostsHeader/MainPostsHeader'
@@ -6,29 +6,30 @@ import MainPostsItem from './MainPostsItem/MainPostsItem'
 import Pagination from '../../components/Pagination/Pagination'
 import Preloader from '../../components/Preloader/Preloader'
 
-import { getPosts, resetPosts } from '../../store/reducers/posts/postReducer'
+import { getPosts, resetPosts, setFilters } from '../../store/reducers/posts/postReducer'
 
-import { getIsLoading, getPostsCount, getPostsList } from '../../store/reducers/posts/postSelectors'
+import {
+	getIsLoading,
+	getPostsCount,
+	getPostsFilters,
+	getPostsList,
+} from '../../store/reducers/posts/postSelectors'
 
 const MainPosts = memo(() => {
-	const allCount = useSelector(getPostsCount)
-	const allPosts = useSelector(getPostsList)
+	const count = useSelector(getPostsCount)
+	const posts = useSelector(getPostsList)
 	const isLoading = useSelector(getIsLoading)
-
-	const limit = 10
-	const [offset, setOffset] = useState(0)
-	const [count, setCount] = useState(allCount)
-	const [posts, setPosts] = useState([])
+	const filters = useSelector(getPostsFilters)
 
 	const dispatch = useDispatch()
 
-	useEffect(() => {
-		setCount(allCount)
-	}, [allCount])
+	const { limit, page } = filters
+
+	const setPage = ({ page }) => dispatch(setFilters({ filters: { page } }))
 
 	useEffect(() => {
-		dispatch(getPosts())
-	}, [dispatch])
+		dispatch(getPosts({ filters }))
+	}, [dispatch, filters])
 
 	useEffect(
 		() => () => {
@@ -37,24 +38,15 @@ const MainPosts = memo(() => {
 		[dispatch]
 	)
 
-	if (!allPosts) return
+	if (!posts) return
 
 	return (
 		<div className="main-posts">
-			<MainPostsHeader
-				allPosts={allPosts}
-				limit={limit}
-				offset={offset}
-				setPosts={setPosts}
-				setCount={setCount}
-				setOffset={setOffset}
-			/>
+			<MainPostsHeader setFilters={setFilters} />
 			{posts.map(({ title, body, id, userId }) => (
 				<MainPostsItem key={id + title[0]} id={id} title={title} body={body} userId={userId} />
 			))}
-			{count > limit && (
-				<Pagination count={count} setOffset={setOffset} limit={limit} offset={offset} />
-			)}
+			{count > limit && <Pagination setPage={setPage} count={count} limit={limit} page={page} />}
 			<Preloader isShow={isLoading} />
 		</div>
 	)

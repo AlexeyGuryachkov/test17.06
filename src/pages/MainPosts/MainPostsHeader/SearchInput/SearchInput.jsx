@@ -1,51 +1,26 @@
 import React, { memo, useEffect, useState } from 'react'
-import { array, func, number } from 'prop-types'
+import { func } from 'prop-types'
 
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Form from 'react-bootstrap/Form'
 import CloseButton from 'react-bootstrap/CloseButton'
 
 import './SearchInput.scss'
+import { useDispatch } from 'react-redux'
 
-const SearchInput = memo(({ allPosts, offset, limit, setPosts, setCount, setOffset }) => {
+const SearchInput = memo(({ setFilters }) => {
 	const [text, setText] = useState('')
+
+	const dispatch = useDispatch()
 
 	const clearValue = () => {
 		setText('')
-		setCount(allPosts.length)
-		setOffset(0)
-	}
-
-	const handleKeyDown = () => {
-		setOffset(0)
+		dispatch(setFilters({ filters: { page: 1 } }))
 	}
 
 	useEffect(() => {
-		if (text.length) {
-			const arr = []
-			allPosts.forEach((post) => {
-				const { title } = post
-				if (title.includes(text)) {
-					arr.push(post)
-					setCount(arr.length)
-					setPosts(arr.slice(offset, limit + offset))
-				}
-			})
-			if (
-				!allPosts
-					.map((item) => item.title)
-					.join()
-					.includes(text)
-			) {
-				setPosts([])
-				setCount(0)
-			}
-		} else {
-			/*сетаю посты лишь тут, потому что иначе при работе поиска 
-			некорретно отрабатывает пагинация*/
-			setPosts(allPosts.slice(offset, limit + offset))
-		}
-	}, [allPosts, text, offset, limit, setPosts, setCount])
+		dispatch(setFilters({ filters: { searchText: text, page: 1 } }))
+	}, [dispatch, text, setFilters])
 
 	return (
 		<div className="search-input-wrapper">
@@ -56,7 +31,6 @@ const SearchInput = memo(({ allPosts, offset, limit, setPosts, setCount, setOffs
 					placeholder="поиск по заголовку"
 					value={text}
 					onChange={({ target: { value } }) => setText(value)}
-					onKeyDown={handleKeyDown}
 				/>
 			</FloatingLabel>
 			<CloseButton onClick={clearValue} className={text && 'active'} />
@@ -65,12 +39,7 @@ const SearchInput = memo(({ allPosts, offset, limit, setPosts, setCount, setOffs
 })
 
 SearchInput.propTypes = {
-	allPosts: array.isRequired,
-	offset: number.isRequired,
-	limit: number.isRequired,
-	setPosts: func.isRequired,
-	setCount: func.isRequired,
-	setOffset: func.isRequired,
+	setFilters: func.isRequired,
 }
 
 export default SearchInput

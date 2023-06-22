@@ -22,7 +22,8 @@ function* postsWorker(action) {
 	yield put(setIsLoading({ isLoading: true }))
 	yield delay(500)
 	try {
-		const posts = yield call(postsApi.requestPosts, action.payload)
+		const posts = yield call(postsApi.requestPosts, { filters: action.payload.filters })
+
 		yield put(setPosts({ posts }))
 	} catch (e) {
 		yield put(setNots({ nots: { id: getRandomId(), type: 'error', msg: e.message } }))
