@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 import Avatar from '../../../components/Avatar/Avatar'
 
-import { getUserData } from '../../../store/reducers/users/usersSelectors'
+import { getUserData } from '../../../store/reducers/user/userSelectors'
 
 import myAvatar from '../../../assets/media/my-avatar.jpg'
 

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import MainPostsItem from '../../MainPosts/MainPostsItem/MainPostsItem'
 
-import { getUsersPosts } from '../../../store/reducers/users/usersSelectors'
+import { getUsersPosts } from '../../../store/reducers/user/userSelectors'
 
 import { getRandomId } from '../../../functions'
 

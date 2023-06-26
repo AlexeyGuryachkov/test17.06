@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom'
 import MainPostsComments from './MainPostsComments/MainPostsComments'
 import Avatar from '../../../components/Avatar/Avatar'
 
-import { getComments } from '../../../store/reducers/posts/postReducer'
+import { requestComments } from '../../../store/reducers/posts/postReducer'
 
 import { getCommentsList } from '../../../store/reducers/posts/postSelectors'
 
@@ -25,7 +25,7 @@ const MainPostsItem = memo(({ id, title, body, userId }) => {
 		({ id }) =>
 		() => {
 			if (!comments.map(({ postId }) => postId).includes(id)) {
-				dispatch(getComments({ postId: id }))
+				dispatch(requestComments({ postId: id }))
 			}
 			setIsCommentsShow(!isCommentsShow)
 		}

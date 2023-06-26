@@ -6,9 +6,9 @@ import UserInfo from './UserInfo/UserInfo'
 import UserPosts from './UserPosts/UserPosts'
 import Preloader from '../../components/Preloader/Preloader'
 
-import { getUserById, getUserPosts, resetUserData } from '../../store/reducers/users/usersReducer'
+import { requestUser, requestUserPosts, resetUserData } from '../../store/reducers/user/userReducer'
 
-import { getIsLoading } from '../../store/reducers/users/usersSelectors'
+import { getIsLoading } from '../../store/reducers/user/userSelectors'
 
 import './UserPage.scss'
 
@@ -19,8 +19,8 @@ const UserPage = memo(() => {
 	const isLoading = useSelector(getIsLoading)
 
 	useEffect(() => {
-		dispatch(getUserById({ userId: id }))
-		dispatch(getUserPosts({ userId: id }))
+		dispatch(requestUser({ userId: id }))
+		dispatch(requestUserPosts({ userId: id }))
 	}, [dispatch, id])
 
 	useEffect(

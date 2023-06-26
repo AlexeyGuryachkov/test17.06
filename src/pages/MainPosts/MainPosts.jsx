@@ -6,7 +6,7 @@ import MainPostsItem from './MainPostsItem/MainPostsItem'
 import Pagination from '../../components/Pagination/Pagination'
 import Preloader from '../../components/Preloader/Preloader'
 
-import { getPosts, resetPosts, setFilters } from '../../store/reducers/posts/postReducer'
+import { requestPosts, resetPostsState, setFilters } from '../../store/reducers/posts/postReducer'
 
 import {
 	getIsLoading,
@@ -28,12 +28,12 @@ const MainPosts = memo(() => {
 	const setPage = ({ page }) => dispatch(setFilters({ filters: { page } }))
 
 	useEffect(() => {
-		dispatch(getPosts({ filters }))
+		dispatch(requestPosts({ filters }))
 	}, [dispatch, filters])
 
 	useEffect(
 		() => () => {
-			dispatch(resetPosts())
+			dispatch(resetPostsState())
 		},
 		[dispatch]
 	)

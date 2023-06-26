@@ -1,4 +1,12 @@
-const defaultState = {
+import { createSlice } from '@reduxjs/toolkit'
+
+import postsApi from '../../../api/posts-api'
+
+import { addNot } from '../nots/notsReducer'
+
+import { delay, getRandomId } from '../../../functions'
+
+const initialState = {
 	posts: [],
 	count: null,
 	isLoading: false,
@@ -12,44 +20,68 @@ const defaultState = {
 	},
 }
 
-/*actions*/
-export const SET_POSTS = 'SET_POSTS'
-export const ASYNC_SET_POSTS = 'ASYNC_SET_POSTS'
-export const SET_IS_LOADING = 'SET_IS_LOADING'
-export const RESET_POSTS = 'RESET_POSTS'
-export const SET_COMMENTS = 'SET_COMMENTS'
-export const SET_FILTERS = 'SET_FILTERS'
-export const ASYNC_SET_COMMENTS = 'ASYNC_SET_COMMENTS'
+const posts = createSlice({
+	name: 'postsPage',
+	initialState,
+	reducers: {
+		setPosts: (state, action) => {
+			state.posts = action.payload.posts.posts
+			state.count = action.payload.posts.count
+		},
 
-/*reducer*/
-export default function posts(state = defaultState, action) {
-	switch (action.type) {
-		case SET_POSTS:
-			return { ...state, posts: action.payload.posts.posts, count: action.payload.posts.count }
-		case SET_COMMENTS:
-			return {
-				...state,
-				comments: [...state.comments, ...action.payload.comments],
-			}
-		case SET_IS_LOADING:
-			return { ...state, isLoading: action.payload.isLoading }
+		setComments: (state, action) => {
+			state.comments = action.payload.comments
+		},
 
-		case SET_FILTERS:
-			return { ...state, filters: { ...state.filters, ...action.payload.filters } }
+		setIsLoading: (state, action) => {
+			state.isLoading = action.payload.isLoading
+		},
 
-		default:
-			return state
+		setFilters: (state, action) => {
+			state.filters = { ...state.filters, ...action.payload.filters }
+		},
+	},
+})
+
+const { actions, reducer } = posts
+
+export const { setPosts, setComments, setIsLoading, setFilters } = actions
+
+export const requestPosts =
+	({ filters }) =>
+	async (dispatch) => {
+		dispatch(setIsLoading({ isLoading: true }))
+		delay(500)
+
+		try {
+			const result = await postsApi.requestPosts({ filters })
+			dispatch(setPosts({ posts: result }))
+		} catch (err) {
+			dispatch(addNot({ not: { id: getRandomId(), type: 'error', msg: err.message } }))
+		}
+
+		dispatch(setIsLoading({ isLoading: false }))
 	}
+
+export const resetPostsState = () => (dispatch) => {
+	dispatch(setPosts({ posts: { posts: [], count: null } }))
+	dispatch(setComments({ comments: [] }))
 }
 
-/*action creators*/
-export const setPosts = ({ posts }) => ({ type: SET_POSTS, payload: { posts } })
-export const setFilters = ({ filters }) => ({ type: SET_FILTERS, payload: { filters } })
-export const setComments = ({ comments }) => ({
-	type: SET_COMMENTS,
-	payload: { comments },
-})
-export const setIsLoading = ({ isLoading }) => ({ type: SET_IS_LOADING, payload: { isLoading } })
-export const getPosts = ({ filters }) => ({ type: ASYNC_SET_POSTS, payload: { filters } })
-export const getComments = ({ postId }) => ({ type: ASYNC_SET_COMMENTS, payload: { postId } })
-export const resetPosts = () => ({ type: RESET_POSTS })
+export const requestComments =
+	({ postId }) =>
+	async (dispatch) => {
+		dispatch(setIsLoading({ isLoading: true }))
+		delay(500)
+
+		try {
+			const result = await postsApi.requestComments({ postId })
+			dispatch(setComments({ comments: result }))
+		} catch (err) {
+			dispatch(addNot({ not: { id: getRandomId(), type: 'error', msg: err.message } }))
+		}
+
+		dispatch(setIsLoading({ isLoading: false }))
+	}
+
+export default reducer

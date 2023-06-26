@@ -5,7 +5,7 @@ import { string } from 'prop-types'
 
 import Alert from 'react-bootstrap/Alert'
 
-import { asyncDelNots } from '../../../store/reducers/nots/notsReducer'
+import { delNot } from '../../../store/reducers/nots/notsReducer'
 
 import { getNotType } from '../functions'
 
@@ -25,7 +25,7 @@ const NotsItem = memo(({ type, msg, id }) => {
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			dispatch(asyncDelNots({ id }))
+			dispatch(delNot({ id }))
 		}, 5500)
 
 		return () => {

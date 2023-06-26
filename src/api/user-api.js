@@ -1,6 +1,6 @@
 import inctanceApi from './api'
 
-const usersApi = {
+const userApi = {
 	async getUserById({ userId }) {
 		const response = await inctanceApi.get(`/users/${userId}`)
 
@@ -13,4 +13,4 @@ const usersApi = {
 	},
 }
 
-export default usersApi
+export default userApi

@@ -5,6 +5,8 @@ import { func } from 'prop-types'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
+import { getRandomId } from '../../../../functions'
+
 import './Filters.scss'
 
 const Filters = memo(({ setFilters }) => {
@@ -31,7 +33,7 @@ const Filters = memo(({ setFilters }) => {
 		<div className="header-filters">
 			<DropdownButton id="dropdown-basic-button" title={`Сортировка ${sort}`}>
 				{fiters.map((item) => (
-					<Dropdown.Item key={Date.now()} onClick={handleSetFilters(item)}>
+					<Dropdown.Item key={getRandomId()} onClick={handleSetFilters(item)}>
 						{item.title}
 					</Dropdown.Item>
 				))}
