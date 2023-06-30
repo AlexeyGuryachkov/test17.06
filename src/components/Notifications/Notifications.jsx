@@ -5,7 +5,7 @@ import NotsItem from './NotsItem/NotsItem'
 
 import { getNots } from '../../store/reducers/nots/notsSelector'
 
-import { getRandomId } from '../../functions'
+import { getRandomId } from '../../functions.ts'
 
 import './Notifications.scss'
 

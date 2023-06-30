@@ -10,3 +10,10 @@ const instance = axios.create({
 })
 
 export default instance
+
+export interface APIResponse<T> {
+	ok: boolean
+	result: T
+}
+
+export type APIErrorResult = APIResponse<string>

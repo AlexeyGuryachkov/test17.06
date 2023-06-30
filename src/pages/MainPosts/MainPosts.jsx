@@ -15,6 +15,8 @@ import {
 	getPostsList,
 } from '../../store/reducers/posts/postSelectors'
 
+import { getRandomId } from '../../functions'
+
 const MainPosts = memo(() => {
 	const count = useSelector(getPostsCount)
 	const posts = useSelector(getPostsList)
@@ -38,13 +40,13 @@ const MainPosts = memo(() => {
 		[dispatch]
 	)
 
-	if (!posts) return
+	console.log('render')
 
 	return (
 		<div className="main-posts">
 			<MainPostsHeader setFilters={setFilters} />
 			{posts.map(({ title, body, id, userId }) => (
-				<MainPostsItem key={id + title[0]} id={id} title={title} body={body} userId={userId} />
+				<MainPostsItem key={getRandomId()} id={id} title={title} body={body} userId={userId} />
 			))}
 			{count > limit && <Pagination setPage={setPage} count={count} limit={limit} page={page} />}
 			<Preloader isShow={isLoading} />

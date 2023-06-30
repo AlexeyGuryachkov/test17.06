@@ -14,6 +14,7 @@ const Preloader = memo(({ isShow }) => {
 			document.body.style.overflow = null
 		}
 	}, [isShow])
+
 	return (
 		<div className={cn('preloader-wrapper', { show: isShow })}>
 			<Spinner className="preloader" animation="border" variant="primary" />

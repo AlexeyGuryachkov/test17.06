@@ -7,7 +7,7 @@ import Alert from 'react-bootstrap/Alert'
 
 import { delNot } from '../../../store/reducers/nots/notsReducer'
 
-import { getNotType } from '../functions'
+import { getNotType } from '../functions.ts'
 
 const NotsItem = memo(({ type, msg, id }) => {
 	const [isNotVisible, setIsNotVisible] = useState(true)

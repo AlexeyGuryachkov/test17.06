@@ -5,7 +5,7 @@ import { func } from 'prop-types'
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
-import { getRandomId } from '../../../../functions'
+import { getRandomId } from '../../../../functions.ts'
 
 import './Filters.scss'
 

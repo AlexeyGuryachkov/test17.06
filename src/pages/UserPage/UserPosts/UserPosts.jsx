@@ -5,7 +5,7 @@ import MainPostsItem from '../../MainPosts/MainPostsItem/MainPostsItem'
 
 import { getUsersPosts } from '../../../store/reducers/user/userSelectors'
 
-import { getRandomId } from '../../../functions'
+import { getRandomId } from '../../../functions.ts'
 
 const UserPosts = memo(() => {
 	const posts = useSelector(getUsersPosts)

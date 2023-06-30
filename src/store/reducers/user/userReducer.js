@@ -4,7 +4,7 @@ import userApi from '../../../api/user-api'
 
 import { addNot } from '../nots/notsReducer'
 
-import { delay, getRandomId } from '../../../functions'
+import { delay, getRandomId } from '../../../functions.ts'
 
 const initialState = {
 	user: {},

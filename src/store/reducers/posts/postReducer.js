@@ -4,7 +4,7 @@ import postsApi from '../../../api/posts-api'
 
 import { addNot } from '../nots/notsReducer'
 
-import { delay, getRandomId } from '../../../functions'
+import { delay, getRandomId } from '../../../functions.ts'
 
 const initialState = {
 	posts: [],
@@ -30,7 +30,7 @@ const posts = createSlice({
 		},
 
 		setComments: (state, action) => {
-			state.comments = action.payload.comments
+			state.comments = [...state.comments, ...action.payload.comments]
 		},
 
 		setIsLoading: (state, action) => {
@@ -38,7 +38,7 @@ const posts = createSlice({
 		},
 
 		setFilters: (state, action) => {
-			state.filters = { ...state.filters, ...action.payload.filters }
+			state.filters = { ...state.filters, ...action.payload }
 		},
 	},
 })
@@ -54,7 +54,7 @@ export const requestPosts =
 		delay(500)
 
 		try {
-			const result = await postsApi.requestPosts({ filters })
+			const result = await postsApi.requestPosts(filters)
 			dispatch(setPosts({ posts: result }))
 		} catch (err) {
 			dispatch(addNot({ not: { id: getRandomId(), type: 'error', msg: err.message } }))
@@ -75,7 +75,7 @@ export const requestComments =
 		delay(500)
 
 		try {
-			const result = await postsApi.requestComments({ postId })
+			const result = await postsApi.requestComments(postId)
 			dispatch(setComments({ comments: result }))
 		} catch (err) {
 			dispatch(addNot({ not: { id: getRandomId(), type: 'error', msg: err.message } }))

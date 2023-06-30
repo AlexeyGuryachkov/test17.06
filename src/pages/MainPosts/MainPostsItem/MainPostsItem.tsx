@@ -1,6 +1,5 @@
-import React, { memo, useState } from 'react'
+import React, { FC, memo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { number, string } from 'prop-types'
 
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
@@ -13,22 +12,29 @@ import { requestComments } from '../../../store/reducers/posts/postReducer'
 
 import { getCommentsList } from '../../../store/reducers/posts/postSelectors'
 
+import { IComment } from '../../../types/types'
+
 import './MainPostsItem.scss'
 
-const MainPostsItem = memo(({ id, title, body, userId }) => {
-	const [isCommentsShow, setIsCommentsShow] = useState(false)
+interface postItemProps {
+	id: number
+	title: string
+	body: string
+	userId: number
+}
+
+const MainPostsItem: FC<postItemProps> = memo(({ id, title, body, userId }) => {
+	const [isCommentsShow, setIsCommentsShow] = useState<boolean>(false)
 
 	const dispatch = useDispatch()
 	const comments = useSelector(getCommentsList)
 
-	const getPostComments =
-		({ id }) =>
-		() => {
-			if (!comments.map(({ postId }) => postId).includes(id)) {
-				dispatch(requestComments({ postId: id }))
-			}
-			setIsCommentsShow(!isCommentsShow)
+	const getPostComments = () => {
+		if (!comments.map(({ postId }: IComment) => postId).includes(id)) {
+			dispatch<any>(requestComments({ postId: id }))
 		}
+		setIsCommentsShow(!isCommentsShow)
+	}
 
 	return (
 		<div className="main-posts__item">
@@ -48,7 +54,7 @@ const MainPostsItem = memo(({ id, title, body, userId }) => {
 							</div>
 						</Card.Title>
 						<Card.Text>{body}</Card.Text>
-						<Button variant="primary" onClick={getPostComments({ id })}>
+						<Button variant="primary" onClick={getPostComments}>
 							{isCommentsShow ? 'Скрыть комментарии' : 'Показать комментарии'}
 						</Button>
 					</Card.Body>
@@ -58,12 +64,4 @@ const MainPostsItem = memo(({ id, title, body, userId }) => {
 		</div>
 	)
 })
-
-MainPostsItem.propTypes = {
-	id: number.isRequired,
-	title: string.isRequired,
-	body: string.isRequired,
-	userId: number.isRequired,
-}
-
 export default MainPostsItem

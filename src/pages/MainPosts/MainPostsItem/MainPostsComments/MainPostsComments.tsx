@@ -1,14 +1,21 @@
-import React, { memo } from 'react'
-import { array, number, bool } from 'prop-types'
+import React, { FC, memo } from 'react'
 import cn from 'classnames'
 
 import ListGroup from 'react-bootstrap/ListGroup'
 
 import { getRandomId } from '../../../../functions'
 
+import { IComment } from '../../../../types/types'
+
 import './MainPostsComments.scss'
 
-const MainPostsComments = memo(({ comments, id, isShow }) => (
+interface commentsProps {
+	comments: IComment[]
+	id: number
+	isShow: boolean
+}
+
+const MainPostsComments: FC<commentsProps> = memo(({ comments, id, isShow }) => (
 	<div className={cn('main-posts__comments', { show: isShow })}>
 		<ListGroup as="ol">
 			{comments?.map(({ postId, email, body }) => (
@@ -26,11 +33,5 @@ const MainPostsComments = memo(({ comments, id, isShow }) => (
 		</ListGroup>
 	</div>
 ))
-
-MainPostsComments.propTypes = {
-	comments: array.isRequired,
-	id: number.isRequired,
-	isShow: bool.isRequired,
-}
 
 export default MainPostsComments
