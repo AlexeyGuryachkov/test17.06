@@ -1,6 +1,5 @@
-import React, { memo } from 'react'
+import { FC, memo } from 'react'
 import { useSelector } from 'react-redux'
-import { bool } from 'prop-types'
 
 import ListGroup from 'react-bootstrap/ListGroup'
 
@@ -8,13 +7,15 @@ import Avatar from '../../../components/Avatar/Avatar'
 
 import { getUserData } from '../../../store/reducers/user/userSelectors'
 
+import { IUser } from '../../../types/types'
+
 import myAvatar from '../../../assets/media/my-avatar.jpg'
 
 import './UserInfo.scss'
 
-const UserInfo = memo(({ myCard }) => {
+const UserInfo: FC<Props> = memo(({ myCard }) => {
 	/*about me mock*/
-	const myData = {
+	const myData: IUser = {
 		address: {},
 		company: {},
 		name: 'Алексей Гурячков',
@@ -25,7 +26,7 @@ const UserInfo = memo(({ myCard }) => {
 		telegram: '@aguryachkov',
 	}
 
-	const userData = useSelector(getUserData)
+	const userData: IUser = useSelector(getUserData)
 
 	const user = myCard ? myData : userData
 
@@ -74,12 +75,8 @@ const UserInfo = memo(({ myCard }) => {
 	)
 })
 
-UserInfo.defaultProps = {
-	myCard: false,
-}
-
-UserInfo.propTypes = {
-	myCard: bool,
+interface Props {
+	myCard?: boolean
 }
 
 export default UserInfo

@@ -17,7 +17,8 @@ const AboutMe = memo(() => (
 			</p>
 			<h4 className="title">Стэк</h4>
 			<p className="text">
-				React, Redux, Redux Toolkit, Redux Saga. Также был опыт работы с NodeJS, MySQL, блокчейн.
+				React, Redux, Redux Toolkit, Redux Saga. Учу TypeScript. Также был опыт работы с NodeJS,
+				MySQL, блокчейн.
 				<br />
 				Средства разработки: VSCode, Figma, Postman.
 			</p>

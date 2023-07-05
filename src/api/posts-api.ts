@@ -10,7 +10,7 @@ const postsApi = {
 			`/posts?title_like=${searchText}&_sort=${sortBy}&_order=${sortOrder}&_limit=${limit}&_page=${page}`
 		)
 
-		const count = response.headers.get('X-Total-Count')
+		const count: number = Number(response.headers.get('X-Total-Count'))
 
 		return { posts: response.data, count }
 	},

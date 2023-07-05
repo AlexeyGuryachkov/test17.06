@@ -1,15 +1,14 @@
-import React, { memo, useEffect, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import cn from 'classnames'
-import { string } from 'prop-types'
 
 import Alert from 'react-bootstrap/Alert'
 
 import { delNot } from '../../../store/reducers/nots/notsReducer'
 
-import { getNotType } from '../functions.ts'
+import { getNotType } from '../functions'
 
-const NotsItem = memo(({ type, msg, id }) => {
+const NotsItem: FC<Props> = memo(({ type, msg, id }) => {
 	const [isNotVisible, setIsNotVisible] = useState(true)
 	const dispatch = useDispatch()
 
@@ -25,7 +24,7 @@ const NotsItem = memo(({ type, msg, id }) => {
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			dispatch(delNot({ id }))
+			dispatch<any>(delNot({ id }))
 		}, 5500)
 
 		return () => {
@@ -40,10 +39,10 @@ const NotsItem = memo(({ type, msg, id }) => {
 	)
 })
 
-NotsItem.propTypes = {
-	type: string.isRequired,
-	msg: string.isRequired,
-	id: string.isRequired,
+interface Props {
+	type: string
+	msg: string
+	id: number
 }
 
 export default NotsItem

@@ -16,20 +16,13 @@ import { IComment } from '../../../types/types'
 
 import './MainPostsItem.scss'
 
-interface postItemProps {
-	id: number
-	title: string
-	body: string
-	userId: number
-}
-
-const MainPostsItem: FC<postItemProps> = memo(({ id, title, body, userId }) => {
+const MainPostsItem: FC<Props> = memo(({ id, title, body, userId }) => {
 	const [isCommentsShow, setIsCommentsShow] = useState<boolean>(false)
 
 	const dispatch = useDispatch()
 	const comments = useSelector(getCommentsList)
 
-	const getPostComments = () => {
+	const getPostComments = (): void => {
 		if (!comments.map(({ postId }: IComment) => postId).includes(id)) {
 			dispatch<any>(requestComments({ postId: id }))
 		}
@@ -64,4 +57,11 @@ const MainPostsItem: FC<postItemProps> = memo(({ id, title, body, userId }) => {
 		</div>
 	)
 })
+interface Props {
+	id: number
+	title: string
+	body: string
+	userId: number
+}
+
 export default MainPostsItem

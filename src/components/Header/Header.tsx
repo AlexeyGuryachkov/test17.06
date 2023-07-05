@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import Button from 'react-bootstrap/Button'
@@ -9,7 +9,7 @@ import NavMenu from '../NavMenu/NavMenu'
 
 import './Header.scss'
 
-const Header = memo(() => {
+const Header: FC = memo(() => {
 	const [showMenu, setShowMenu] = useState(false)
 	const { pathname } = useLocation()
 

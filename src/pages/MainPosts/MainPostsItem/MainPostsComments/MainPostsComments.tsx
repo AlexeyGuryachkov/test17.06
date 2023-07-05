@@ -9,13 +9,7 @@ import { IComment } from '../../../../types/types'
 
 import './MainPostsComments.scss'
 
-interface commentsProps {
-	comments: IComment[]
-	id: number
-	isShow: boolean
-}
-
-const MainPostsComments: FC<commentsProps> = memo(({ comments, id, isShow }) => (
+const MainPostsComments: FC<Props> = memo(({ comments, id, isShow }) => (
 	<div className={cn('main-posts__comments', { show: isShow })}>
 		<ListGroup as="ol">
 			{comments?.map(({ postId, email, body }) => (
@@ -33,5 +27,10 @@ const MainPostsComments: FC<commentsProps> = memo(({ comments, id, isShow }) => 
 		</ListGroup>
 	</div>
 ))
+interface Props {
+	comments: IComment[]
+	id: number
+	isShow: boolean
+}
 
 export default MainPostsComments

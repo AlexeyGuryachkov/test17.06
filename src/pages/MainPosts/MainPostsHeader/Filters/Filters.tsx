@@ -1,30 +1,36 @@
-import React, { memo, useState } from 'react'
+import { memo, useState, FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { func } from 'prop-types'
 
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
-import { getRandomId } from '../../../../functions.ts'
+import { getRandomId } from '../../../../functions'
+
+import { IPostFilters } from '../../../../types/types'
 
 import './Filters.scss'
 
-const Filters = memo(({ setFilters }) => {
-	const [sort, setSort] = useState('')
+const Filters: FC<Props> = memo(({ setFilters }) => {
+	const [sort, setSort] = useState<string>('')
 	const dispatch = useDispatch()
 
-	const fiters = [
+	interface sortFilterItem {
+		title: string
+		value: string
+	}
+
+	const fiters: sortFilterItem[] = [
 		{ title: 'A-Z', value: 'asc' },
 		{ title: 'Z-A', value: 'desc' },
 		{ title: 'Сбросить', value: '' },
 	]
 
-	const handleSetFilters = (item) => () => {
+	const handleSetFilters = (item: sortFilterItem) => () => {
 		if (item.value) {
-			dispatch(setFilters({ filters: { sortOrder: item.value, sortBy: 'title' } }))
+			dispatch<any>(setFilters({ sortOrder: item.value, sortBy: 'title' }))
 			setSort(item.title)
 		} else {
-			dispatch(setFilters({ filters: { sortOrder: item.value, sortBy: '' } }))
+			dispatch<any>(setFilters({ sortOrder: item.value, sortBy: '' }))
 			setSort('')
 		}
 	}
@@ -42,8 +48,8 @@ const Filters = memo(({ setFilters }) => {
 	)
 })
 
-Filters.propTypes = {
-	setFilters: func.isRequired,
+interface Props {
+	setFilters: (filters: IPostFilters) => void
 }
 
 export default Filters

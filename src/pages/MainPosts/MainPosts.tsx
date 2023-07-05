@@ -17,30 +17,30 @@ import {
 
 import { getRandomId } from '../../functions'
 
+import { IPostFilters, IPost } from '../../types/types'
+
 const MainPosts = memo(() => {
-	const count = useSelector(getPostsCount)
-	const posts = useSelector(getPostsList)
-	const isLoading = useSelector(getIsLoading)
-	const filters = useSelector(getPostsFilters)
+	const count: number = useSelector(getPostsCount)
+	const posts: IPost[] = useSelector(getPostsList)
+	const isLoading: boolean = useSelector(getIsLoading)
+	const filters: IPostFilters = useSelector(getPostsFilters)
 
 	const dispatch = useDispatch()
 
 	const { limit, page } = filters
 
-	const setPage = ({ page }) => dispatch(setFilters({ filters: { page } }))
+	const setPage = (page: number): void => dispatch<any>(setFilters({ page }))
 
 	useEffect(() => {
-		dispatch(requestPosts({ filters }))
+		dispatch<any>(requestPosts({ filters }))
 	}, [dispatch, filters])
 
 	useEffect(
 		() => () => {
-			dispatch(resetPostsState())
+			dispatch<any>(resetPostsState())
 		},
 		[dispatch]
 	)
-
-	console.log('render')
 
 	return (
 		<div className="main-posts">
@@ -48,7 +48,9 @@ const MainPosts = memo(() => {
 			{posts.map(({ title, body, id, userId }) => (
 				<MainPostsItem key={getRandomId()} id={id} title={title} body={body} userId={userId} />
 			))}
-			{count > limit && <Pagination setPage={setPage} count={count} limit={limit} page={page} />}
+			{limit && page && count > limit && (
+				<Pagination setPage={setPage} count={count} limit={limit} page={page} />
+			)}
 			<Preloader isShow={isLoading} />
 		</div>
 	)

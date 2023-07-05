@@ -1,17 +1,16 @@
-import React, { memo, useEffect } from 'react'
+import { FC, memo, useEffect } from 'react'
 import cn from 'classnames'
-import { bool } from 'prop-types'
 
 import Spinner from 'react-bootstrap/Spinner'
 
 import './Preloader.scss'
 
-const Preloader = memo(({ isShow }) => {
+const Preloader: FC<Props> = memo(({ isShow }) => {
 	useEffect(() => {
 		if (isShow) {
 			document.body.style.overflow = 'hidden'
 		} else {
-			document.body.style.overflow = null
+			document.body.style.overflow = ''
 		}
 	}, [isShow])
 
@@ -22,8 +21,8 @@ const Preloader = memo(({ isShow }) => {
 	)
 })
 
-Preloader.propTypes = {
-	isShow: bool.isRequired,
+interface Props {
+	isShow: boolean
 }
 
 export default Preloader

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	nots: [],
+	nots: [{ type: '', msg: '', id: '' }],
 }
 
 const nots = createSlice({
