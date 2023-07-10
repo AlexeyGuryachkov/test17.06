@@ -7,7 +7,7 @@ import CloseButton from 'react-bootstrap/CloseButton'
 
 import { getPostsFilters } from '../../../../store/reducers/posts/postSelectors'
 
-import { IPostFilters } from '../../../../types/types'
+import { IPostFilters } from '../../../../store/reducers/posts/types'
 
 import './SearchInput.scss'
 
@@ -21,7 +21,7 @@ const SearchInput: FC<Props> = memo(({ setFilters }) => {
 	}
 
 	const clearValue = () => {
-		dispatch<any>(setFilters({ page: 1 }))
+		dispatch<any>(setFilters({ searchText: '', page: 1 }))
 	}
 
 	return (

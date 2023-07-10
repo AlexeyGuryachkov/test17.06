@@ -7,7 +7,7 @@ import App from './App'
 
 import reportWebVitals from './reportWebVitals.js'
 
-import store from './store/store.js'
+import store from './store/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -19,5 +19,7 @@ root.render(
 	</BrowserRouter>
 	// </React.StrictMode>
 )
+
+// console.log(store.getState())
 
 reportWebVitals()

@@ -42,7 +42,7 @@ const NotsItem: FC<Props> = memo(({ type, msg, id }) => {
 interface Props {
 	type: string
 	msg: string
-	id: number
+	id: string
 }
 
 export default NotsItem

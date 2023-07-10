@@ -7,7 +7,7 @@ import Avatar from '../../../components/Avatar/Avatar'
 
 import { getUserData } from '../../../store/reducers/user/userSelectors'
 
-import { IUser } from '../../../types/types'
+import { IUser } from '../../../store/reducers/user/types'
 
 import myAvatar from '../../../assets/media/my-avatar.jpg'
 
@@ -26,7 +26,7 @@ const UserInfo: FC<Props> = memo(({ myCard }) => {
 		telegram: '@aguryachkov',
 	}
 
-	const userData: IUser = useSelector(getUserData)
+	const userData = useSelector(getUserData)
 
 	const user = myCard ? myData : userData
 

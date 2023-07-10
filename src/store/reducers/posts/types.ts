@@ -1,5 +1,13 @@
 import { AxiosHeaders } from 'axios'
 
+export interface InititalState {
+	posts: IPost[] | []
+	count: number
+	isLoading: boolean
+	comments: IComment[] | []
+	filters: IPostFilters
+}
+
 export interface IPostFilters {
 	limit?: number
 	page?: number
@@ -16,16 +24,6 @@ export interface IPost {
 	body: string
 }
 
-export interface IPostsResponce {
-	data: IPost[]
-	headers: AxiosHeaders
-}
-
-export interface IPostState {
-	posts: IPost[]
-	count: null | number
-}
-
 export interface IComment {
 	postId: number
 	id: number
@@ -34,19 +32,7 @@ export interface IComment {
 	body: string
 }
 
-export interface IUser {
-	name: string
-	email: string
-	phone: string
-	avatar?: string
-	birthday?: string
-	telegram?: string
-	address?: {}
-	company?: {}
-}
-
-export interface INot {
-	type: string
-	msg: string
-	id: number
+export interface IPostsResponce {
+	data: IPost[]
+	headers: AxiosHeaders
 }

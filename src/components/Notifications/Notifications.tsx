@@ -5,20 +5,19 @@ import NotsItem from './NotsItem/NotsItem'
 
 import { getNots } from '../../store/reducers/nots/notsSelector'
 
-import { INot } from '../../types/types'
-
 import { getRandomId } from '../../functions'
 
 import './Notifications.scss'
 
 const Notifications: FC = memo(() => {
-	const nots: INot[] = useSelector(getNots)
+	const nots = useSelector(getNots)
 
 	return (
 		<div className="notifications-wrapper">
-			{nots.map(({ type, msg, id }: INot) => (
-				<NotsItem key={getRandomId()} type={type} msg={msg} id={id} />
-			))}
+			{!!nots.length &&
+				nots.map(({ type, msg, id }) => (
+					<NotsItem key={getRandomId()} type={type} msg={msg} id={id} />
+				))}
 		</div>
 	)
 })

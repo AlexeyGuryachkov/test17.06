@@ -15,12 +15,14 @@ import {
 	getPostsList,
 } from '../../store/reducers/posts/postSelectors'
 
+import { IPostFilters, IPost } from '../../store/reducers/posts/types'
+
 import { getRandomId } from '../../functions'
 
-import { IPostFilters, IPost } from '../../types/types'
+import './MainPosts.scss'
 
 const MainPosts = memo(() => {
-	const count: number = useSelector(getPostsCount)
+	const count = useSelector(getPostsCount)
 	const posts: IPost[] = useSelector(getPostsList)
 	const isLoading: boolean = useSelector(getIsLoading)
 	const filters: IPostFilters = useSelector(getPostsFilters)

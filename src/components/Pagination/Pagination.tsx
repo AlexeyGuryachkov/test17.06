@@ -8,11 +8,11 @@ const Paginat: FC<Props> = memo(({ count, setPage, limit, page }) => {
 	const pagesCount: number = Math.ceil(+count / limit) || 1
 
 	const prevPage = () => {
-		if (page && page > 1) setPage(page - 1)
+		if (page > 1) setPage(page - 1)
 	}
 
 	const nextPage = () => {
-		if (page && page < pagesCount) setPage(page + 1)
+		if (page < pagesCount) setPage(page + 1)
 	}
 
 	const choosePage = (count: number) => () => {
@@ -25,16 +25,16 @@ const Paginat: FC<Props> = memo(({ count, setPage, limit, page }) => {
 			_pagesNumbers.push(i)
 		}
 
-		if (page && page < 5) {
+		if (page < 5) {
 			_pagesNumbers.splice(4, _pagesNumbers.length)
 			setPagesNumbers(_pagesNumbers)
 		}
 
-		if (page && page > 4 && page < pagesCount - 3) {
+		if (page > 4 && page < pagesCount - 3) {
 			setPagesNumbers([page - 1, page, page + 1])
 		}
 
-		if (page && page > pagesCount - 4) {
+		if (page > pagesCount - 4) {
 			_pagesNumbers.splice(0, _pagesNumbers.length - 4)
 			setPagesNumbers(_pagesNumbers)
 		}
@@ -47,7 +47,7 @@ const Paginat: FC<Props> = memo(({ count, setPage, limit, page }) => {
 				<Pagination.Item active={page === 1} onClick={() => setPage(1)}>
 					1
 				</Pagination.Item>
-				{page && page > 4 && <Pagination.Ellipsis />}
+				{page > 4 && <Pagination.Ellipsis />}
 				{pagesNumbers.map((num) => {
 					return (
 						<Pagination.Item key={num} active={num === page} onClick={choosePage(num)}>
@@ -55,7 +55,7 @@ const Paginat: FC<Props> = memo(({ count, setPage, limit, page }) => {
 						</Pagination.Item>
 					)
 				})}
-				{page && page < pagesCount - 3 && <Pagination.Ellipsis />}
+				{page < pagesCount - 3 && <Pagination.Ellipsis />}
 				<Pagination.Item active={page === pagesCount} onClick={() => setPage(pagesCount)}>
 					{pagesCount}
 				</Pagination.Item>

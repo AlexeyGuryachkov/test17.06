@@ -1,6 +1,6 @@
 import instance from './api'
 
-import { IPostsResponce, IPostFilters } from '../types/types'
+import { IPostsResponce, IPostFilters } from '../store/reducers/posts/types'
 
 const postsApi = {
 	async requestPosts(filters: IPostFilters) {
@@ -14,7 +14,7 @@ const postsApi = {
 
 		return { posts: response.data, count }
 	},
-	async requestComments(postId: string) {
+	async requestComments(postId: number) {
 		const response = await instance.get(`/posts/${postId}/comments`)
 
 		return response.data

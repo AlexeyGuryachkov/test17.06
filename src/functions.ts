@@ -1,5 +1,5 @@
 /* функция-генератор случайных идентификаторов*/
-export const getRandomId = () => {
+export const getRandomId = (): string => {
 	return Math.random().toString(36).substring(7)
 }
 

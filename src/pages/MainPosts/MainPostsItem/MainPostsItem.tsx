@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Button from 'react-bootstrap/Button'
@@ -12,7 +12,7 @@ import { requestComments } from '../../../store/reducers/posts/postReducer'
 
 import { getCommentsList } from '../../../store/reducers/posts/postSelectors'
 
-import { IComment } from '../../../types/types'
+import { IComment } from '../../../store/reducers/posts/types'
 
 import './MainPostsItem.scss'
 
@@ -22,7 +22,7 @@ const MainPostsItem: FC<Props> = memo(({ id, title, body, userId }) => {
 	const dispatch = useDispatch()
 	const comments = useSelector(getCommentsList)
 
-	const getPostComments = (): void => {
+	const getPostComments = () => {
 		if (!comments.map(({ postId }: IComment) => postId).includes(id)) {
 			dispatch<any>(requestComments({ postId: id }))
 		}

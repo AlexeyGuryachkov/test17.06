@@ -6,7 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { getRandomId } from '../../../../functions'
 
-import { IPostFilters } from '../../../../types/types'
+import { IPostFilters } from '../../../../store/reducers/posts/types'
 
 import './Filters.scss'
 

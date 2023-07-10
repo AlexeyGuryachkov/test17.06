@@ -7,10 +7,10 @@ import { getUsersPosts } from '../../../store/reducers/user/userSelectors'
 
 import { getRandomId } from '../../../functions'
 
-import { IPost } from '../../../types/types'
+import { IPost } from '../../../store/reducers/posts/types'
 
 const UserPosts: FC = memo(() => {
-	const posts: IPost[] = useSelector(getUsersPosts)
+	const posts = useSelector(getUsersPosts)
 
 	return (
 		<div className="user-posts">

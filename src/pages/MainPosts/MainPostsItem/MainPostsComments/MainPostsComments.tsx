@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 import { getRandomId } from '../../../../functions'
 
-import { IComment } from '../../../../types/types'
+import { IComment } from '../../../../store/reducers/posts/types'
 
 import './MainPostsComments.scss'
 
