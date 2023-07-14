@@ -59,11 +59,11 @@ const MainPostsItem: FC<Props> = ({ id, title, body, userId }) => {
 		</div>
 	)
 }
+
+export default MainPostsItem
 interface Props {
 	id: number
 	title: string
 	body: string
 	userId: number
 }
-
-export default MainPostsItem

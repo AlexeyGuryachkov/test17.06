@@ -1,10 +1,8 @@
-import React, { memo } from 'react'
-
 import UserInfo from '../UserPage/UserInfo/UserInfo'
 
 import './AboutMe.scss'
 
-const AboutMe = memo(() => (
+const AboutMe = () => (
 	<div className="about-me">
 		<UserInfo myCard />
 		<div className="about-me__text">
@@ -79,6 +77,6 @@ const AboutMe = memo(() => (
 			</p>
 		</div>
 	</div>
-))
+)
 
 export default AboutMe
