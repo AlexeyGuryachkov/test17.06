@@ -6,6 +6,7 @@ export interface InititalState {
 	isLoading: boolean
 	comments: IComment[] | []
 	filters: IPostFilters
+	showComments: number[]
 }
 
 export interface IPostFilters {

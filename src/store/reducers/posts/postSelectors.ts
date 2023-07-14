@@ -5,3 +5,4 @@ export const getCommentsList = ({ postsPage: { comments } }: RootState) => comme
 export const getIsLoading = ({ postsPage: { isLoading } }: RootState) => isLoading
 export const getPostsCount = ({ postsPage: { count } }: RootState) => count
 export const getPostsFilters = ({ postsPage: { filters } }: RootState) => filters
+export const getShowComments = ({ postsPage: { showComments } }: RootState) => showComments

@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import { useSelector } from 'react-redux'
 
 import MainPostsItem from '../../MainPosts/MainPostsItem/MainPostsItem'
@@ -9,7 +9,7 @@ import { getRandomId } from '../../../functions'
 
 import { IPost } from '../../../store/reducers/posts/types'
 
-const UserPosts: FC = memo(() => {
+const UserPosts: FC = () => {
 	const posts = useSelector(getUsersPosts)
 
 	return (
@@ -19,6 +19,6 @@ const UserPosts: FC = memo(() => {
 			))}
 		</div>
 	)
-})
+}
 
 export default UserPosts

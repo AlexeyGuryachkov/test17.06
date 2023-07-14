@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react'
+import { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Button from 'react-bootstrap/Button'
@@ -8,24 +8,26 @@ import { NavLink } from 'react-router-dom'
 import MainPostsComments from './MainPostsComments/MainPostsComments'
 import Avatar from '../../../components/Avatar/Avatar'
 
-import { requestComments } from '../../../store/reducers/posts/postReducer'
+import { requestComments, setShowComments } from '../../../store/reducers/posts/postReducer'
 
-import { getCommentsList } from '../../../store/reducers/posts/postSelectors'
+import { getCommentsList, getShowComments } from '../../../store/reducers/posts/postSelectors'
 
 import { IComment } from '../../../store/reducers/posts/types'
 
 import './MainPostsItem.scss'
 
-const MainPostsItem: FC<Props> = memo(({ id, title, body, userId }) => {
+const MainPostsItem: FC<Props> = ({ id, title, body, userId }) => {
 	const [isCommentsShow, setIsCommentsShow] = useState<boolean>(false)
 
 	const dispatch = useDispatch()
 	const comments = useSelector(getCommentsList)
+	const showComments = useSelector(getShowComments)
 
 	const getPostComments = () => {
 		if (!comments.map(({ postId }: IComment) => postId).includes(id)) {
 			dispatch<any>(requestComments({ postId: id }))
 		}
+		dispatch<any>(setShowComments(id))
 		setIsCommentsShow(!isCommentsShow)
 	}
 
@@ -53,10 +55,10 @@ const MainPostsItem: FC<Props> = memo(({ id, title, body, userId }) => {
 					</Card.Body>
 				</Card>
 			</div>
-			<MainPostsComments comments={comments} id={id} isShow={isCommentsShow} />
+			<MainPostsComments comments={comments} id={id} isShow={showComments.includes(id)} />
 		</div>
 	)
-})
+}
 interface Props {
 	id: number
 	title: string

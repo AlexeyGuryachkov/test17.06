@@ -15,6 +15,7 @@ const initialState: InititalState = {
 	count: 0,
 	isLoading: false,
 	comments: [],
+	showComments: [0],
 	filters: {
 		limit: 10,
 		page: 1,
@@ -43,6 +44,14 @@ const posts = createSlice({
 			state.comments = [...state.comments, ...action.payload]
 		},
 
+		setShowComments: (state, action: PayloadAction<number>) => {
+			if (state.showComments.includes(action.payload)) {
+				state.showComments = state.showComments.filter((id) => id !== action.payload)
+			} else {
+				state.showComments = [...state.showComments, action.payload]
+			}
+		},
+
 		setIsLoading: (state, action: PayloadAction<{ isLoading: boolean }>) => {
 			state.isLoading = action.payload.isLoading
 		},
@@ -55,7 +64,7 @@ const posts = createSlice({
 
 const { actions, reducer } = posts
 
-export const { setPosts, setComments, setIsLoading, setFilters } = actions
+export const { setPosts, setComments, setIsLoading, setFilters, setShowComments } = actions
 
 export const requestPosts =
 	({ filters }: { filters: IPostFilters }): Thunk =>

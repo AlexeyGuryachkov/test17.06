@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ import { getIsLoading } from '../../store/reducers/user/userSelectors'
 
 import './UserPage.scss'
 
-const UserPage = memo(() => {
+const UserPage = () => {
 	const dispatch = useDispatch()
 	const { id } = useParams()
 
@@ -37,6 +37,6 @@ const UserPage = memo(() => {
 			<Preloader isShow={isLoading} />
 		</div>
 	)
-})
+}
 
 export default UserPage

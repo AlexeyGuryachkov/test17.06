@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC } from 'react'
 import cn from 'classnames'
 
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -9,7 +9,7 @@ import { IComment } from '../../../../store/reducers/posts/types'
 
 import './MainPostsComments.scss'
 
-const MainPostsComments: FC<Props> = memo(({ comments, id, isShow }) => (
+const MainPostsComments: FC<Props> = ({ comments, id, isShow }) => (
 	<div className={cn('main-posts__comments', { show: isShow })}>
 		<ListGroup as="ol">
 			{comments?.map(({ postId, email, body }) => (
@@ -26,7 +26,8 @@ const MainPostsComments: FC<Props> = memo(({ comments, id, isShow }) => (
 			))}
 		</ListGroup>
 	</div>
-))
+)
+
 interface Props {
 	comments: IComment[]
 	id: number
