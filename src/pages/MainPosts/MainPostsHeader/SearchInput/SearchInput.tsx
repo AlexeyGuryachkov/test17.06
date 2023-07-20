@@ -1,9 +1,11 @@
-import React, { FC, memo } from 'react'
+import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Form from 'react-bootstrap/Form'
 import CloseButton from 'react-bootstrap/CloseButton'
+
+import { setFilters } from '../../../../store/reducers/posts/postReducer'
 
 import { getPostsFilters } from '../../../../store/reducers/posts/postSelectors'
 
@@ -11,7 +13,7 @@ import { IPostFilters } from '../../../../store/reducers/posts/types'
 
 import './SearchInput.scss'
 
-const SearchInput: FC<Props> = memo(({ setFilters }) => {
+const SearchInput: FC = () => {
 	const { searchText }: IPostFilters = useSelector(getPostsFilters)
 
 	const dispatch = useDispatch()
@@ -38,10 +40,6 @@ const SearchInput: FC<Props> = memo(({ setFilters }) => {
 			<CloseButton onClick={clearValue} className={searchText && 'active'} />
 		</div>
 	)
-})
-
-interface Props {
-	setFilters: (filters: IPostFilters) => void
 }
 
 export default SearchInput

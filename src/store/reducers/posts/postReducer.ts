@@ -2,20 +2,20 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import postsApi from '../../../api/posts-api'
 
-import { addNot } from '../nots/notsReducer'
+import { BaseThunk, SliceActions } from '../../store'
 
 import { IComment, IPost, IPostFilters, InititalState } from './types'
 
+import { addNot, NotsActions } from '../nots/notsReducer'
+
 import { delay, getRandomId } from '../../../functions'
-import { BaseThunk, SliceActions } from '../../store'
-import { NotsActions } from '../nots/notsReducer'
 
 const initialState: InititalState = {
 	posts: [],
 	count: 0,
 	isLoading: false,
+	isCommentsLoading: false,
 	comments: [],
-	showComments: [0],
 	filters: {
 		limit: 10,
 		page: 1,
@@ -44,16 +44,11 @@ const posts = createSlice({
 			state.comments = [...state.comments, ...action.payload]
 		},
 
-		setShowComments: (state, action: PayloadAction<number>) => {
-			if (state.showComments.includes(action.payload)) {
-				state.showComments = state.showComments.filter((id) => id !== action.payload)
-			} else {
-				state.showComments = [...state.showComments, action.payload]
-			}
-		},
-
 		setIsLoading: (state, action: PayloadAction<{ isLoading: boolean }>) => {
 			state.isLoading = action.payload.isLoading
+		},
+		setIsCommentsLoading: (state, action: PayloadAction<{ isCommentsLoading: boolean }>) => {
+			state.isCommentsLoading = action.payload.isCommentsLoading
 		},
 
 		setFilters: (state, action: PayloadAction<IPostFilters>) => {
@@ -64,7 +59,7 @@ const posts = createSlice({
 
 const { actions, reducer } = posts
 
-export const { setPosts, setComments, setIsLoading, setFilters, setShowComments } = actions
+export const { setPosts, setComments, setIsLoading, setFilters, setIsCommentsLoading } = actions
 
 export const requestPosts =
 	({ filters }: { filters: IPostFilters }): Thunk =>
@@ -78,11 +73,9 @@ export const requestPosts =
 		} catch (err: any) {
 			dispatch(addNot({ id: getRandomId(), type: 'error', msg: err.message }))
 		}
-
 		dispatch(setIsLoading({ isLoading: false }))
 	}
 
-//todo CHECK THIS
 export const resetPostsState = (): Thunk => (dispatch) => {
 	dispatch(setPosts({ posts: [], count: 0 }))
 	dispatch(setComments([]))
@@ -90,18 +83,24 @@ export const resetPostsState = (): Thunk => (dispatch) => {
 
 export const requestComments =
 	({ postId }: { postId: number }): Thunk =>
-	async (dispatch) => {
-		dispatch(setIsLoading({ isLoading: true }))
-		delay(500)
+	async (dispatch, getState) => {
+		const {
+			postsPage: { comments },
+		} = getState()
 
-		try {
-			const result = await postsApi.requestComments(postId)
-			dispatch(setComments(result))
-		} catch (err: any) {
-			dispatch(addNot({ id: getRandomId(), type: 'error', msg: err.message }))
+		if (!comments.map((comment: IComment) => comment.postId).includes(postId)) {
+			dispatch(setIsCommentsLoading({ isCommentsLoading: true }))
+			delay(500)
+
+			try {
+				const result = await postsApi.requestComments(postId)
+				dispatch(setComments(result))
+			} catch (err: any) {
+				dispatch(addNot({ id: getRandomId(), type: 'error', msg: err.message }))
+			}
+
+			dispatch(setIsCommentsLoading({ isCommentsLoading: false }))
 		}
-
-		dispatch(setIsLoading({ isLoading: false }))
 	}
 
 export default reducer

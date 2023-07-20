@@ -1,16 +1,16 @@
-import { memo, useState, FC } from 'react'
+import { useState, FC } from 'react'
 import { useDispatch } from 'react-redux'
 
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
-import { getRandomId } from '../../../../functions'
+import { setFilters } from '../../../../store/reducers/posts/postReducer'
 
-import { IPostFilters } from '../../../../store/reducers/posts/types'
+import { getRandomId } from '../../../../functions'
 
 import './Filters.scss'
 
-const Filters: FC<Props> = memo(({ setFilters }) => {
+const Filters: FC = () => {
 	const [sort, setSort] = useState<string>('')
 	const dispatch = useDispatch()
 
@@ -46,10 +46,6 @@ const Filters: FC<Props> = memo(({ setFilters }) => {
 			</DropdownButton>
 		</div>
 	)
-})
-
-interface Props {
-	setFilters: (filters: IPostFilters) => void
 }
 
 export default Filters

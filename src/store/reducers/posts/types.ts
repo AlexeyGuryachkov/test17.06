@@ -4,9 +4,9 @@ export interface InititalState {
 	posts: IPost[] | []
 	count: number
 	isLoading: boolean
+	isCommentsLoading: boolean
 	comments: IComment[] | []
 	filters: IPostFilters
-	showComments: number[]
 }
 
 export interface IPostFilters {

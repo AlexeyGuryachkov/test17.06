@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import MainPostsHeader from './MainPostsHeader/MainPostsHeader'
@@ -15,17 +15,15 @@ import {
 	getPostsList,
 } from '../../store/reducers/posts/postSelectors'
 
-import { IPostFilters, IPost } from '../../store/reducers/posts/types'
-
 import { getRandomId } from '../../functions'
 
 import './MainPosts.scss'
 
-const MainPosts = memo(() => {
+const MainPosts = () => {
 	const count = useSelector(getPostsCount)
-	const posts: IPost[] = useSelector(getPostsList)
-	const isLoading: boolean = useSelector(getIsLoading)
-	const filters: IPostFilters = useSelector(getPostsFilters)
+	const posts = useSelector(getPostsList)
+	const isLoading = useSelector(getIsLoading)
+	const filters = useSelector(getPostsFilters)
 
 	const dispatch = useDispatch()
 
@@ -46,7 +44,7 @@ const MainPosts = memo(() => {
 
 	return (
 		<div className="main-posts">
-			<MainPostsHeader setFilters={setFilters} />
+			<MainPostsHeader />
 			{posts.map(({ title, body, id, userId }) => (
 				<MainPostsItem key={getRandomId()} id={id} title={title} body={body} userId={userId} />
 			))}
@@ -56,6 +54,6 @@ const MainPosts = memo(() => {
 			<Preloader isShow={isLoading} />
 		</div>
 	)
-})
+}
 
 export default MainPosts
